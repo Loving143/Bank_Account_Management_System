@@ -3,15 +3,15 @@ package com.bank.entity;
 import java.util.Date;
 import java.util.Set;
 
-import com.bank.dto.AddBankRequest;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.bank.dto.AddBankRequest;
 
 @Entity
 public class Bank {
@@ -22,7 +22,7 @@ public class Bank {
 	private String name;
 	private String ifscCode;
 	private String headOfficeAddress;
-	private Integer phoneNumber;
+	private String phoneNumber;
 	private String email;
 	private Date establishedDate;
 	@OneToMany(cascade= CascadeType.ALL, fetch = FetchType.LAZY , mappedBy = "bank")
@@ -53,12 +53,7 @@ public class Bank {
 	public void setHeadOfficeAddress(String headOfficeAddress) {
 		this.headOfficeAddress = headOfficeAddress;
 	}
-	public Integer getPhoneNumber() {
-		return phoneNumber;
-	}
-	public void setPhoneNumber(Integer phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -73,14 +68,26 @@ public class Bank {
 	}
 	public Bank() {
 	}
+	
 	public Bank(AddBankRequest request) {
 		this.name = request.getName();
 		this.email = request.getEmail();
 		this.establishedDate = request.getEstablishedDate();
-		this.ifscCode = request.getIfscCode();
 		this.headOfficeAddress = request.getHeadOfficeAddress();
 		this.phoneNumber = request.getPhoneNumber();
 		this.branch = request.getBranch();
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public Set<Branch> getBranch() {
+		return branch;
+	}
+	public void setBranch(Set<Branch> branch) {
+		this.branch = branch;
 	}
 	
 	

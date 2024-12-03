@@ -2,16 +2,14 @@ package com.bank.dto;
 
 import com.bank.entity.Bank;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 public class AddBranchRequest {
 	
 	private String name;
 	private String address;
 	private Integer phoneNo;
-	private Bank bank;
+	private Integer bankId;
+	private String ifscCode;
+	
 	public String getName() {
 		return name;
 	}
@@ -30,11 +28,18 @@ public class AddBranchRequest {
 	public void setPhoneNo(Integer phoneNo) {
 		this.phoneNo = phoneNo;
 	}
-	public Bank getBank() {
-		return bank;
+	public Integer getBankId() {
+		return bankId;
 	}
-	public void setBank(Bank bank) {
-		this.bank = bank;
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
 	}
+	public String getIfscCode() {
+		return ifscCode;
+	}
+	public void setIfscCode(String ifscCode) {
+		this.ifscCode = ifscCode;
+	}
+	
 
 }

@@ -1,12 +1,14 @@
 package com.bank.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.bank.dto.AddBranchRequest;
 
 @Entity
 public class Branch {
@@ -16,6 +18,7 @@ public class Branch {
 	private String name;
 	private String address;
 	private Integer phoneNo;
+	private String ifscCode;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "bank_id", nullable = false)
 	private Bank bank;
@@ -53,6 +56,17 @@ public class Branch {
 	public Branch() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Branch(AddBranchRequest request) {
+		this.name = request.getName();
+		this.address = request.getAddress();
+		this.phoneNo = request.getPhoneNo();
+	}
+	public String getIfscCode() {
+		return ifscCode;
+	}
+	public void setIfscCode(String ifscCode) {
+		this.ifscCode = ifscCode;
 	}
 	
 
