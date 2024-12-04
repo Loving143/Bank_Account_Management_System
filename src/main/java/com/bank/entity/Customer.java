@@ -3,6 +3,7 @@ package com.bank.entity;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,17 +26,22 @@ public class Customer {
 	private Set<Address> addresses ;
 	private String panCard;
 	private String aadhaarCard;
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+	private boolean verified;
+	@OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+	private Set<Document>documents;
 	
 	public Customer() {
 		// TODO Auto-generated constructor stub
 	}
-	public Customer(AddCustomerRequest request) {
+	public Customer(AddCustomerRequest request , Set<Document> docs ) {
 		this.name = request.getName();
 		this.email = request.getEmail();
 		this.phoneNo = request.getPhoneNo();
 		this.panCard = request.getPanCard();
 		this.aadhaarCard = request.getAadhaarCard();
 		this.addresses = request.getAddresses();
+		this.documents = docs;
 	}
 	public String getName() {
 		return name;

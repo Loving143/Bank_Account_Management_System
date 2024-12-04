@@ -16,7 +16,7 @@ public class AddCustomerRequest {
 	private Set<Address> addresses ;
 	private String panCard;
 	private String aadhaarCard;
-	
+	private Set<AddDocumentRequest> documents;
 	public String getName() {
 		return name;	
 	}
@@ -52,6 +52,12 @@ public class AddCustomerRequest {
 	}
 	public void setAadhaarCard(String aadhaarCard) {
 		this.aadhaarCard = aadhaarCard;
+	}
+	public Set<AddDocumentRequest> getDocuments() {
+		return documents;
+	}
+	public void setDocuments(Set<AddDocumentRequest> documents) {
+		this.documents = documents;
 	}
 	
 	

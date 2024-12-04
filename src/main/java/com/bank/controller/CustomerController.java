@@ -19,7 +19,7 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@PostMapping("/addCustomer")
-	public String addCustomer(@RequestBody AddCustomerRequest request) {
+	public String addCustomer(@RequestBody AddCustomerRequest request) throws Exception {
 		customerService.addCustomer(request);
 		return "Customer added successfully";
 	}
