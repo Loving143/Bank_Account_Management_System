@@ -6,7 +6,7 @@ public class AddBranchRequest {
 	
 	private String name;
 	private String address;
-	private Integer phoneNo;
+	private String phoneNo;
 	private Integer bankId;
 	private String ifscCode;
 	
@@ -22,12 +22,7 @@ public class AddBranchRequest {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Integer getPhoneNo() {
-		return phoneNo;
-	}
-	public void setPhoneNo(Integer phoneNo) {
-		this.phoneNo = phoneNo;
-	}
+	
 	public Integer getBankId() {
 		return bankId;
 	}
@@ -39,6 +34,12 @@ public class AddBranchRequest {
 	}
 	public void setIfscCode(String ifscCode) {
 		this.ifscCode = ifscCode;
+	}
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 	
 

@@ -17,6 +17,8 @@ public class AddCustomerRequest {
 	private String panCard;
 	private String aadhaarCard;
 	private Set<AddDocumentRequest> documents;
+	private Integer age;
+	
 	public String getName() {
 		return name;	
 	}
@@ -58,6 +60,12 @@ public class AddCustomerRequest {
 	}
 	public void setDocuments(Set<AddDocumentRequest> documents) {
 		this.documents = documents;
+	}
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 	
 	

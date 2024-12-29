@@ -30,6 +30,7 @@ public class Customer {
 	private boolean verified;
 	@OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
 	private Set<Document>documents;
+	private Integer age;
 	
 	public Customer() {
 		// TODO Auto-generated constructor stub
@@ -78,6 +79,30 @@ public class Customer {
 	}
 	public void setAadhaarCard(String aadhaarCard) {
 		this.aadhaarCard = aadhaarCard;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public boolean isVerified() {
+		return verified;
+	}
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+	public Set<Document> getDocuments() {
+		return documents;
+	}
+	public void setDocuments(Set<Document> documents) {
+		this.documents = documents;
+	}
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 }

@@ -61,8 +61,8 @@ public class CustomerServiceImpl implements CustomerService{
 			throw new BadRequestException("Pancard already exists!");
 		if(customerRepository.existsByAadhaarCard(request.getAadhaarCard()))
 			throw new BadRequestException("AadhaarCard already exists!");
-		
-		
+		if(request.getAge()<18)
+			throw new BadRequestException("Customer age should be minimum 18 years!");
 	}
 
 	@Override

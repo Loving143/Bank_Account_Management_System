@@ -17,7 +17,7 @@ public class Branch {
 	private Integer branchId;
 	private String name;
 	private String address;
-	private Integer phoneNo;
+	private String phoneNo;
 	private String ifscCode;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "bank_id", nullable = false)
@@ -41,12 +41,6 @@ public class Branch {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Integer getPhoneNo() {
-		return phoneNo;
-	}
-	public void setPhoneNo(Integer phoneNo) {
-		this.phoneNo = phoneNo;
-	}
 	public Bank getBank() {
 		return bank;
 	}
@@ -61,12 +55,19 @@ public class Branch {
 		this.name = request.getName();
 		this.address = request.getAddress();
 		this.phoneNo = request.getPhoneNo();
+		this.ifscCode = request.getIfscCode();
 	}
 	public String getIfscCode() {
 		return ifscCode;
 	}
 	public void setIfscCode(String ifscCode) {
 		this.ifscCode = ifscCode;
+	}
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 	
 
