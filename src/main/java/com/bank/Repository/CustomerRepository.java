@@ -26,4 +26,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 			+ " where c.id = :customerId")
 	List<Address> permanentAddressHistoryByCustomerId(Integer customerId);
 
+	boolean existsByEmail(String email);
+
+	boolean existsByPhoneNo(String phoneNo);
+
+	boolean existsByPanCard(String panCard);
+
+	boolean existsByAadhaarCard(String aadhaarCard);
+
 }

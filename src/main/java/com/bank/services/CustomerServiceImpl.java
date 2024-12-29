@@ -17,6 +17,7 @@ import com.bank.dto.AddressRequest;
 import com.bank.entity.Address;
 import com.bank.entity.Customer;
 import com.bank.entity.Document;
+import com.bank.exception.BadRequestException;
 import com.bank.master.DocumentType;
 
 @Service
@@ -29,21 +30,38 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public void addCustomer(AddCustomerRequest request) throws Exception {
-		
+		validateCustomer(request);
 		Set<Document>documents = new HashSet();
 		List<AddDocumentRequest>docRequest = new ArrayList(request.getDocuments());
 		for(AddDocumentRequest docReq: docRequest ) {
-			System.out.println(docReq.getDocumentId());
-			if(!documentTypeRepository.existsById(docReq.getDocumentId())) {
+			if(!docReq.getDocExtension().equals(".pdf"))
+				throw new BadRequestException("Document uploaded is not in a pdf format");
+			if(!documentTypeRepository.existsById(docReq.getDocumentTypeId())) {
 				throw new Exception("Document Type Id does not exists!");
 			}
-			Optional<DocumentType> docType = documentTypeRepository.findById(docReq.getDocumentId());
+			Optional<DocumentType> docType = documentTypeRepository.findById(docReq.getDocumentTypeId());
+			String cv = docType.get().getDocTypeCode();
 					Document doc = new Document(docReq,docType.get());
 			documents.add(doc);
 		}
-		
+		if(documents.size()<2) {
+			throw new BadRequestException("Both pan card and aadhaar card documents are required");
+		}
 		Customer customer = new Customer(request,documents);
 		customerRepository.save(customer);
+		
+	}
+
+	private void validateCustomer(AddCustomerRequest request) {
+		if(customerRepository.existsByEmail(request.getEmail()))
+			throw new BadRequestException("Email already exists.Please use another email");
+		if(customerRepository.existsByPhoneNo(request.getPhoneNo()))
+			throw new BadRequestException("Phone number already exists!");
+		if(customerRepository.existsByPanCard(request.getPanCard()))
+			throw new BadRequestException("Pancard already exists!");
+		if(customerRepository.existsByAadhaarCard(request.getAadhaarCard()))
+			throw new BadRequestException("AadhaarCard already exists!");
+		
 		
 	}
 
