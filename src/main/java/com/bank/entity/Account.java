@@ -1,6 +1,5 @@
 package com.bank.entity;
 
-import java.util.Currency;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -10,7 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import com.bank.dto.AddAccountRequest;
 import com.bank.enumm.AccountType;
 import com.bank.enumm.CurrencyType;
 
@@ -25,15 +27,34 @@ public class Account {
 	private AccountType accountType;
 	@ManyToOne
 	private Customer customer;
+	@ManyToOne
+	private Bank bank;
 	private double balance;
 	@Enumerated(EnumType.STRING)
 	private CurrencyType currency;
 	private double minimumbalance;
 	private String accountStatus;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdatedDate;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date closureDate;
+	private double withdrawalAmount;
+	private double withDrawnAmount;
 	
+	public Account(AddAccountRequest request) {
+		this.accountNumber = request.getAccountNumber();
+		this.accountType =  request.getAccountType();
+		this.currency = request.getCurrency();
+		this.balance = request.getBalance();
+		this.minimumbalance = request.getMinimumbalance();
+		this.accountStatus = request.getAccountStatus();
+		this.creationDate = request.getCreationDate();
+		this.lastUpdatedDate = request.getLastUpdatedDate();
+		this.closureDate = request.getClosureDate();
+		this.withdrawalAmount = request.getWithdrawalAmount();
+	}
 	
 	public CurrencyType getCurrency() {
 		return currency;
@@ -100,6 +121,28 @@ public class Account {
 	}
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
+	}
+	public Bank getBank() {
+		return bank;
+	}
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
+
+	public double getWithdrawalAmount() {
+		return withdrawalAmount;
+	}
+
+	public void setWithdrawalAmount(double withdrawalAmount) {
+		this.withdrawalAmount = withdrawalAmount;
+	}
+
+	public double getWithDrawnAmount() {
+		return withDrawnAmount;
+	}
+
+	public void setWithDrawnAmount(double withDrawnAmount) {
+		this.withDrawnAmount = withDrawnAmount;
 	}
 	
 	

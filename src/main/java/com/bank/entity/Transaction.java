@@ -3,10 +3,17 @@ package com.bank.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.bank.enumm.TransactionStatus;
+import com.bank.enumm.TransactionType;
 
 @Entity
 public class Transaction {
@@ -17,7 +24,12 @@ public class Transaction {
 	private double transactionAmount;
 	private String description;
 	private double balanceAfterTransaction;
+	@Enumerated(EnumType.STRING)
+	TransactionType transactionType;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date transactionDate;
+	@Enumerated(EnumType.STRING)
+	private TransactionStatus transactionStatus;
 	@ManyToOne
 	private Account account;
 	
