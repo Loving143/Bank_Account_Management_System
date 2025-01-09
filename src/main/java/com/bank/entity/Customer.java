@@ -14,13 +14,11 @@ import javax.persistence.OneToMany;
 import com.bank.dto.AddCustomerRequest;
 
 @Entity
-public class Customer {
+public class Customer extends Person{
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer id;
-	private String name;
-	private String email;
 	private String phoneNo;
 	@OneToMany(cascade= CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<Address> addresses ;
@@ -31,30 +29,19 @@ public class Customer {
 	@OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
 	private Set<Document>documents;
 	private Integer age;
+	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
+	private Set<Role>roles;
 	
 	public Customer() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	public Customer(AddCustomerRequest request , Set<Document> docs ) {
-		this.name = request.getName();
-		this.email = request.getEmail();
+		super(request.getName(),request.getPassword(),request.getEmail());
 		this.phoneNo = request.getPhoneNo();
 		this.panCard = request.getPanCard();
 		this.aadhaarCard = request.getAadhaarCard();
 		this.addresses = request.getAddresses();
 		this.documents = docs;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getPhoneNo() {
 		return phoneNo;

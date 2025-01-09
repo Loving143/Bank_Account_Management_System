@@ -1,36 +1,40 @@
-package com.bank.dto;
+package com.bank.entity;
 
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.bank.entity.Address;
+@Entity
+public class Admin {
 
-public class AddCustomerRequest {
-
-	private String name;
-	private String email;
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private Integer id;
 	private String phoneNo;
+	@OneToMany(cascade= CascadeType.ALL,fetch = FetchType.LAZY)
 	private Set<Address> addresses ;
 	private String panCard;
 	private String aadhaarCard;
-	private Set<AddDocumentRequest> documents;
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+	private boolean verified;
+	@OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+	private Set<Document>documents;
 	private Integer age;
-	private String password;
+	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
+	private Set<Role>roles;
 	
-	public String getName() {
-		return name;	
+	public Integer getId() {
+		return id;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getPhoneNo() {
 		return phoneNo;
@@ -56,10 +60,16 @@ public class AddCustomerRequest {
 	public void setAadhaarCard(String aadhaarCard) {
 		this.aadhaarCard = aadhaarCard;
 	}
-	public Set<AddDocumentRequest> getDocuments() {
+	public boolean isVerified() {
+		return verified;
+	}
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+	public Set<Document> getDocuments() {
 		return documents;
 	}
-	public void setDocuments(Set<AddDocumentRequest> documents) {
+	public void setDocuments(Set<Document> documents) {
 		this.documents = documents;
 	}
 	public Integer getAge() {
@@ -67,12 +77,6 @@ public class AddCustomerRequest {
 	}
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	
 	
