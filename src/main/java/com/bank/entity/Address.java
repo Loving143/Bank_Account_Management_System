@@ -1,6 +1,7 @@
 package com.bank.entity;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -53,6 +54,23 @@ public class Address {
 		this.city = addressRequest .getCity();
 		this.country = addressRequest.getCountry();
 	}
+	
+	 // Constructor to map data
+    public Address(Map<String, Object> data) {
+    	
+    	String addressTypeStr = (String) data.get("addressType");
+        if (addressTypeStr != null) {
+            this.addressType = AddressType.valueOf(addressTypeStr); // Enum conversion
+        }
+        this.approved = (Boolean) data.get("approved");
+        this.city = (String) data.get("city");
+        this.country = (String) data.get("country");
+        this.houseNumber = (String) data.get("houseNumber");
+        this.locality = (String) data.get("locality");
+        this.pincode = (String) data.get("pincode");
+        this.state = (String) data.get("state");
+    }
+	
 	public Integer getId() {
 		return id;
 	}

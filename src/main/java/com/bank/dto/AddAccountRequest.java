@@ -1,10 +1,16 @@
 package com.bank.dto;
 
 import java.util.Date;
-
 import com.bank.enumm.AccountType;
 import com.bank.enumm.CurrencyType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+
+import com.bank.entity.Customer;
+import com.bank.enumm.AccountType;
+import com.bank.enumm.CurrencyType;
 
 public class AddAccountRequest {
 
@@ -23,6 +29,7 @@ public class AddAccountRequest {
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date closureDate;
 	private double withdrawalAmount;
+
 	
 	public String getAccountNumber() {
 		return accountNumber;

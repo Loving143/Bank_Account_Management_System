@@ -46,7 +46,6 @@ public class AccountServiceImpl implements AccountService {
 			throw new BadRequestException("Account number already exists!");
 		}
 		
-		
 	}
 
 }

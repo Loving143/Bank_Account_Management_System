@@ -17,6 +17,7 @@ import com.bank.dto.AddressRequest;
 import com.bank.entity.Address;
 import com.bank.entity.Customer;
 import com.bank.entity.Document;
+import com.bank.entity.Person;
 import com.bank.exception.BadRequestException;
 import com.bank.master.DocumentType;
 
@@ -92,6 +93,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public List<Address> permanentAddressHistoryByCustomerId(Integer customerId) {
 		return customerRepository.permanentAddressHistoryByCustomerId(customerId);
+	}
+	
+	public void RegisterCustomer(Person customer){
+		customerRepository.save((Customer)customer);
+		
 	}
 	
 	

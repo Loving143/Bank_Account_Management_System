@@ -2,6 +2,7 @@ package com.bank.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -40,8 +41,6 @@ public class Account {
 	private Date lastUpdatedDate;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date closureDate;
-	private double withdrawalAmount;
-	private double withDrawnAmount;
 	
 	public Account(AddAccountRequest request) {
 		this.accountNumber = request.getAccountNumber();
@@ -53,7 +52,7 @@ public class Account {
 		this.creationDate = request.getCreationDate();
 		this.lastUpdatedDate = request.getLastUpdatedDate();
 		this.closureDate = request.getClosureDate();
-		this.withdrawalAmount = request.getWithdrawalAmount();
+	//	this.withdrawalAmount = request.getWithdrawalAmount();
 	}
 	
 	public CurrencyType getCurrency() {
@@ -129,22 +128,5 @@ public class Account {
 		this.bank = bank;
 	}
 
-	public double getWithdrawalAmount() {
-		return withdrawalAmount;
-	}
-
-	public void setWithdrawalAmount(double withdrawalAmount) {
-		this.withdrawalAmount = withdrawalAmount;
-	}
-
-	public double getWithDrawnAmount() {
-		return withDrawnAmount;
-	}
-
-	public void setWithDrawnAmount(double withDrawnAmount) {
-		this.withDrawnAmount = withDrawnAmount;
-	}
-	
-	
 
 }

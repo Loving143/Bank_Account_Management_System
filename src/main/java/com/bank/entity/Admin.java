@@ -1,6 +1,10 @@
 package com.bank.entity;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Admin {
+public class Admin extends Person{
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
@@ -78,6 +82,26 @@ public class Admin {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	
+	public Admin () {
+		
+	}
+	public Admin (Map<String,Object>data) {
+	super();
+	this.setUserName((String)data.get("name"));
+	this.setPassword((String)data.get("password"));
+	this.setEmail((String)data.get("email"));
+	this.phoneNo = (String)data.get("phoneNo");
+	this.aadhaarCard =(String)data.get("aadhaarCard");
+	this.age = (Integer)data.get("age");
+	this.panCard = (String)data.get("panCard");
+    List<Map<String, Object>> addressList = (List<Map<String, Object>>) data.get("addresses");
+    if (addressList != null) {
+        this.addresses = addressList.stream()
+                                    .map(Address::new) // Use Address constructor to convert each map
+                                    .collect(Collectors.toSet());
+    } else {
+        this.addresses = new HashSet<>(); // Default to an empty set if addresses are null
+    }
+	}
 	
 }

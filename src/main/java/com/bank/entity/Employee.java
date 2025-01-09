@@ -1,10 +1,6 @@
 package com.bank.entity;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,11 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.bank.dto.AddCustomerRequest;
-
 @Entity
-public class Customer extends Person{
-
+public class Employee extends Person{
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer id;
@@ -36,34 +29,11 @@ public class Customer extends Person{
 	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
 	private Set<Role>roles;
 	
-	public Customer() {
-		super();
+	public Integer getId() {
+		return id;
 	}
-	
-	public <T> Customer(Map<String, Object> data) {
-		super();
-		this.setUserName((String)data.get("name"));
-		this.setPassword((String)data.get("password"));
-		this.setEmail((String)data.get("email"));
-		this.phoneNo = (String)data.get("phoneNo");
-		this.aadhaarCard =(String)data.get("aadhaarCard");
-	    List<Map<String, Object>> addressList = (List<Map<String, Object>>) data.get("addresses");
-	    if (addressList != null) {
-	        this.addresses = addressList.stream()
-	                                    .map(Address::new) // Use Address constructor to convert each map
-	                                    .collect(Collectors.toSet());
-	    } else {
-	        this.addresses = new HashSet<>(); // Default to an empty set if addresses are null
-	    }
-		
-		}
-	public Customer(AddCustomerRequest request , Set<Document> docs ) {
-		super(request.getName(),request.getPassword(),request.getEmail());
-		this.phoneNo = request.getPhoneNo();
-		this.panCard = request.getPanCard();
-		this.aadhaarCard = request.getAadhaarCard();
-		this.addresses = request.getAddresses();
-		this.documents = docs;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getPhoneNo() {
 		return phoneNo;
@@ -89,12 +59,6 @@ public class Customer extends Person{
 	public void setAadhaarCard(String aadhaarCard) {
 		this.aadhaarCard = aadhaarCard;
 	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public boolean isVerified() {
 		return verified;
 	}
@@ -113,5 +77,13 @@ public class Customer extends Person{
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+	
 
 }

@@ -1,6 +1,9 @@
 package com.bank.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
@@ -9,7 +12,10 @@ import javax.persistence.InheritanceType;
 public abstract class Person { // Here I have used abstract as If I do not use the 
 		//then I need to add a variable @Id which would create the primary key in the database 
 		// But we do not need this so we will make it abstract.
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	private String userName;
 	private String password;
 	private String email;
