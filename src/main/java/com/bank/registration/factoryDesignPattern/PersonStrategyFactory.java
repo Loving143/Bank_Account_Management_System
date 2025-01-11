@@ -1,4 +1,4 @@
-package com.bank.factoryDesignPattern;
+package com.bank.registration.factoryDesignPattern;
 
 import com.bank.entity.Admin;
 import com.bank.entity.Customer;

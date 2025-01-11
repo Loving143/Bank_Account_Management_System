@@ -1,4 +1,4 @@
-package com.bank.strategyPattern;
+package com.bank.registration.strategypattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

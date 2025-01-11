@@ -1,12 +1,12 @@
-package com.bank.factoryDesignPattern;
+package com.bank.registration.factoryDesignPattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bank.strategyPattern.AdminRegistrationStrategy;
-import com.bank.strategyPattern.CustomerRegistrationStrategy;
-import com.bank.strategyPattern.EmployeeRegistrationStrategy;
-import com.bank.strategyPattern.RegistrationBehaviour;
+import com.bank.registration.strategypattern.AdminRegistrationStrategy;
+import com.bank.registration.strategypattern.CustomerRegistrationStrategy;
+import com.bank.registration.strategypattern.EmployeeRegistrationStrategy;
+import com.bank.registration.strategypattern.RegistrationBehaviour;
 
 @Component
 public class RegistrationStrategyFactory {

@@ -1,10 +1,12 @@
 package com.bank.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.bank.dto.CustomerDetailsDto;
 import com.bank.entity.Address;
 import com.bank.entity.Customer;
 
@@ -33,5 +35,13 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 	boolean existsByPanCard(String panCard);
 
 	boolean existsByAadhaarCard(String aadhaarCard);
+	
+	@Query(" Select "
+			+ " c.userName as name,"
+			+ " c.password as password "
+			+ " from Customer c "
+			+ " where c.id=:id "
+			)
+	public Optional<CustomerDetailsDto> fetchCustomerDetails(Integer id);
 
 }

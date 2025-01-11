@@ -1,4 +1,4 @@
-package com.bank.strategyPattern;
+package com.bank.registration.strategypattern;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,29 +11,28 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bank.Repository.CustomerRepository;
+import com.bank.Repository.AdminRepository;
 import com.bank.Repository.DocumentTypeRepository;
 import com.bank.dto.AddDocumentRequest;
-import com.bank.entity.Address;
+import com.bank.entity.Admin;
 import com.bank.entity.Customer;
 import com.bank.entity.Document;
 import com.bank.entity.Person;
 import com.bank.exception.BadRequestException;
 import com.bank.master.DocumentType;
-
 @Component
-public class CustomerRegistrationStrategy<T> implements RegistrationBehaviour<T> {
-	
-	@Autowired
-	private CustomerRepository customerRepository;
+public class AdminRegistrationStrategy<T> implements RegistrationBehaviour<T>{
 
+	@Autowired 
+	private AdminRepository adminRepository;
+	
 	@Autowired
 	private DocumentTypeRepository documentTypeRepository;
 	
 	@Override
-	public void register(Person person,T t) {
+	public void register(Person person, T t) {
 		Map<String, Object> data = (Map<String, Object>) t;
-		validateCustomerRegistration(data);
+		validateAdminRegistration(data);
 		Set<Document>documents = new HashSet();
 		Set<AddDocumentRequest>documentsReq=null;
 		
@@ -62,21 +61,21 @@ public class CustomerRegistrationStrategy<T> implements RegistrationBehaviour<T>
 		if(documents.size()<2) {
 //			throw new BadRequestException("Both pan card and aadhaar card documents are required");
 		}
-		Person customer = new Customer(data);
-		System.out.println(customer);
-		customerRepository.save((Customer)customer);
+		Person admin = new Admin(data);
+		adminRepository.save((Admin)admin);
 	}
 	
-	public void validateCustomerRegistration(Map<String,Object>data) {
-		if(customerRepository.existsByEmail((String)data.get("email")))
+	public void validateAdminRegistration(Map<String,Object>data) {
+		if(adminRepository.existsByEmail((String)data.get("email")))
 			throw new BadRequestException("Email already exists.Please use another email");
-		if(customerRepository.existsByPhoneNo((String)data.get("phoneNo")))
+		if(adminRepository.existsByPhoneNo((String)data.get("phoneNo")))
 			throw new BadRequestException("Phone number already exists!");
-		if(customerRepository.existsByPanCard((String)data.get("panCard")))
+		if(adminRepository.existsByPanCard((String)data.get("panCard")))
 			throw new BadRequestException("Pancard already exists!");
-		if(customerRepository.existsByAadhaarCard((String)data.get("aadhaarCard")))
+		if(adminRepository.existsByAadhaarCard((String)data.get("aadhaarCard")))
 			throw new BadRequestException("AadhaarCard already exists!");
 		if((Integer)data.get("age")<18)
-			throw new BadRequestException("Customer age should be minimum 18 years!");
+			throw new BadRequestException("Admin age should be minimum 18 years!");
 	}
+
 }

@@ -1,7 +1,11 @@
 package com.bank.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.bank.dto.AdminDetailsDto;
 import com.bank.entity.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin,Integer> {
@@ -13,5 +17,14 @@ public interface AdminRepository extends JpaRepository<Admin,Integer> {
 	boolean existsByPanCard(String panCard);
 
 	boolean existsByAadhaarCard(String aadhaarCard);
+
+	@Query("Select "
+			+ "a.userName as name, "
+			+ "a.password as password,"
+			+ "a.email as email,"
+			+ "a.phoneNo as phoneNo "
+			+ "from Admin a "
+			+ "where a.id =:id ")
+	Optional<AdminDetailsDto> fetchAdminDetails(Integer id);
 
 }

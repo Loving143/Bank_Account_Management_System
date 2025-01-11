@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bank.factoryDesignPattern.PersonStrategyFactory;
-import com.bank.factoryDesignPattern.RegistrationStrategyFactory;
+import com.bank.registration.factoryDesignPattern.PersonStrategyFactory;
+import com.bank.registration.factoryDesignPattern.RegistrationStrategyFactory;
+import com.bank.registration.strategypattern.RegistrationContext;
 import com.bank.response.ResponseMessage;
-import com.bank.strategyPattern.RegistrationContext;
 
 @RestController
 @RequestMapping("/register")
@@ -19,6 +19,7 @@ public class RegistrationController {
 	
 	@Autowired
 	private RegistrationContext context;
+	
 	
 	@Autowired
 	private RegistrationStrategyFactory strategyFactory;
