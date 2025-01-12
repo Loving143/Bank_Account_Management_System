@@ -1,4 +1,4 @@
-package com.bank.registration.strategypattern;
+package com.bank.updation.strategypattern;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,34 +9,41 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.bank.Repository.CustomerRepository;
 import com.bank.Repository.DocumentTypeRepository;
 import com.bank.dto.AddDocumentRequest;
+import com.bank.entity.Address;
 import com.bank.entity.Customer;
 import com.bank.entity.Document;
-import com.bank.entity.Person;
+import com.bank.enumm.DynamicResponse;
 import com.bank.exception.BadRequestException;
+import com.bank.fetch.factorydesignpattern.FetchClassStrategyFactory;
 import com.bank.master.DocumentType;
 import com.bank.services.EntityService;
 
-@Component
-public class CustomerRegistrationStrategy<T> implements RegistrationBehaviour<T> {
-	
-	@Autowired
-	private CustomerRepository customerRepository;
+@Service
+public class CustomerUpdationStrategy<Type,T> implements UpdationBehaviour<Type,T>{
 
 	@Autowired
-	private DocumentTypeRepository documentTypeRepository;
+	private CustomerRepository customerRepository;
 	
-	@Autowired 
+	@Autowired
 	private EntityService entityService;
 	
+	@Autowired DocumentTypeRepository documentTypeRepository;
+
+	@Autowired
+	private FetchClassStrategyFactory fetchClassStrategyFactory;
+	
 	@Override
-	public void register(Person person,T t) {
-		Map<String, Object> data = (Map<String, Object>) t;
-		validateCustomerRegistration(data);
+	public void update(Type type,T t,Integer id) {
+		Map<String,Object>data = (Map<String,Object>)t;
+		validateCustomerUpdation(data,id);
+		DynamicResponse response = entityService.fetchEntityById(fetchClassStrategyFactory.getClassStrategy((String)type),id);
+		Customer customer =(Customer) response.getData().get("customer");
+		
 		Set<Document>documents = new HashSet();
 		Set<AddDocumentRequest>documentsReq=null;
 		
@@ -62,24 +69,38 @@ public class CustomerRegistrationStrategy<T> implements RegistrationBehaviour<T>
 					Document doc = new Document(docReq,docType.get());
 			documents.add(doc);
 		}
+		customer.setDocuments(documents);
 		if(documents.size()<2) {
 //			throw new BadRequestException("Both pan card and aadhaar card documents are required");
 		}
-		Person customer = new Customer(data);
-		System.out.println(customer);
+		 List<Map<String, Object>> addressList = (List<Map<String, Object>>) data.get("addresses");
+		 if (addressList != null) {
+		        customer.setAddresses(addressList.stream()
+		                                    .map(Address::new) // Use Address constructor to convert each map
+		                                    .collect(Collectors.toSet()));
+		    } else {
+		        customer.setAddresses(new HashSet<>()); // Default to an empty set if addresses are null
+		    }
+		 customer.setUserName((String)data.get("name"));
+		customer.setAadhaarCard((String)data.get("aadhaarCard"));
+		customer.setEmail((String)data.get("email"));
+		customer.setPanCard((String)data.get("panCard"));
+		customer.setPhoneNo((String)data.get("phoneNo"));
 		customerRepository.save((Customer)customer);
+		
 	}
 	
-	public void validateCustomerRegistration(Map<String,Object>data) {
-		if(entityService.ExistsByEmail(Customer.class, (String)data.get("email")))
+	public void validateCustomerUpdation(Map<String,Object>data,Integer id) {
+		if(customerRepository.existsByEmailAndIdNot((String)data.get("email"),id))
 			throw new BadRequestException("Email already exists.Please use another email");
-		if(entityService.ExistsByPhoneNo(Customer.class, (String)data.get("phoneNo")))
+		if(customerRepository.existsByPhoneNoAndIdNot((String)data.get("phoneNo"),id))
 			throw new BadRequestException("Phone number already exists!");
-		if(entityService.ExistsByPanCard(Customer.class, (String)data.get("panCard")))
+		if(customerRepository.existsByPanCardAndIdNot((String)data.get("panCard"),id))
 			throw new BadRequestException("Pancard already exists!");
-		if(entityService.ExistsByAadhaarCard(Customer.class, (String)data.get("aadhaarCard")))
+		if(customerRepository.existsByAadhaarCardAndIdNot((String)data.get("aadhaarCard"),id))
 			throw new BadRequestException("AadhaarCard already exists!");
 		if((Integer)data.get("age")<18)
 			throw new BadRequestException("Customer age should be minimum 18 years!");
 	}
+
 }

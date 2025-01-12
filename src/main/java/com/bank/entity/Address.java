@@ -35,7 +35,7 @@ public class Address {
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date toDate;
 	@JsonFormat(pattern="dd-MM-yyyy")
-	private Date updationbDate;
+	private Date updationDate;
 	private String houseNumber;
 	private String locality;
 	private String pincode;
@@ -46,7 +46,7 @@ public class Address {
 		this.approved= addressRequest.isApproved();
 		this.fromDate = addressRequest.getFromDate();
 		this.toDate = addressRequest.getToDate();
-		this.updationbDate = new Date();
+		this.updationDate = new Date();
 		this.locality = addressRequest.getLocality();
 		this.houseNumber = addressRequest.getHouseNumber();
 		this.pincode = addressRequest.getPincode();
@@ -163,13 +163,13 @@ public class Address {
 
 
 	public Date getUpdationbDate() {
-		return updationbDate;
+		return updationDate;
 	}
 
 
 
 	public void setUpdationbDate(Date updationbDate) {
-		this.updationbDate = updationbDate;
+		this.updationDate = updationbDate;
 	}
 
 

@@ -19,6 +19,7 @@ public class FetchController {
 	private EntityService entityService;
 	@Autowired
 	private FetchStrategyFactory fetchStrategyFactory;
+	
 	@Autowired
 	private FetchClassStrategyFactory fetchClassStrategyFactory;
 	

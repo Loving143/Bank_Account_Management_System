@@ -44,4 +44,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 			)
 	public Optional<CustomerDetailsDto> fetchCustomerDetails(Integer id);
 
+	boolean existsByEmailAndIdNot(String email,Integer id);
+
+	boolean existsByPhoneNoAndIdNot(String phoneNo,Integer id);
+
+	boolean existsByPanCardAndIdNot(String panCard,Integer id);
+
+	boolean existsByAadhaarCardAndIdNot(String aadhaarCard,Integer id);
+
 }

@@ -22,4 +22,24 @@ public class EntityService {
 	       FetchStrategy<T> strategy = fetchStrategyFactory.getStrategy(entityClass);
 	       return strategy.fetchEntityDetailsById(id);
 	    }
+	  
+	  public<T> boolean ExistsByEmail(Class<T> entityClass, String email){
+		  FetchStrategy<T> strategy = fetchStrategyFactory.getStrategy(entityClass);
+		  return strategy.ExistsByEmail(email);
+	  }
+	  
+	  public<T> boolean ExistsByAadhaarCard(Class<T>entityClass, String aadhaarNo) {
+		  FetchStrategy<T>strategy = fetchStrategyFactory.getStrategy(entityClass);
+		  return strategy.ExistsByAadhaarCard(aadhaarNo);
+	  }
+	  
+	  public<T> boolean ExistsByPanCard(Class<T>entityClass, String panCard) {
+		  FetchStrategy<T>strategy = fetchStrategyFactory.getStrategy(entityClass);
+		  return strategy.ExistsByPanCard(panCard);
+	  }
+	  
+	  public<T> boolean ExistsByPhoneNo(Class<T>entityClass, String mobNo) {
+		  FetchStrategy<T>strategy = fetchStrategyFactory.getStrategy(entityClass);
+		  return strategy.ExistsByMobNo(mobNo);
+	  }
 	}

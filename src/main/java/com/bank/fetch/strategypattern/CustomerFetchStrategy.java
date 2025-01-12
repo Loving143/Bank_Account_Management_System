@@ -41,4 +41,32 @@ public class CustomerFetchStrategy implements FetchStrategy<Customer>{
 	return response;
 	}
 
+	@Override
+	public boolean ExistsByEmail(String email) {
+		return fetchHelper.existsByEmail(customerRepository, email, "customer");
+	}
+
+	@Override
+	public boolean ExistsById(Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean ExistsByMobNo(String mobNo) {
+		return fetchHelper.ExistsByMobNo(customerRepository, "customer",mobNo);
+	}
+
+	@Override
+	public boolean ExistsByAadhaarCard(String aadhaarNo) {
+		return fetchHelper.ExistsByAadhaarCard(customerRepository, "customer", aadhaarNo);
+	}
+
+	@Override
+	public boolean ExistsByPanCard(String panCard) {
+		return fetchHelper.ExistsByPancard(customerRepository,"customer",panCard);
+	}
+	
+	
+
 }

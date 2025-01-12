@@ -40,5 +40,25 @@ public class AdminFetchStrategy implements FetchStrategy<Admin>{
 		response.add("email",dto.getEmail());
 		return response;
 	}
+	@Override
+	public boolean ExistsByEmail(String email) {
+		return fetchHelper.existsByEmail(adminRepository, "admin", email);
+	}
+	@Override
+	public boolean ExistsById(Integer id) {
+		return fetchHelper.ExistsById(adminRepository, "admin", id);
+	}
+	@Override
+	public boolean ExistsByMobNo(String mobNo) {
+		return fetchHelper.ExistsByMobNo(adminRepository, "admin", mobNo);
+	}
+	@Override
+	public boolean ExistsByAadhaarCard(String aadhaarNo) {
+		return fetchHelper.ExistsByAadhaarCard(adminRepository, "admin", aadhaarNo);
+	}
+	@Override
+	public boolean ExistsByPanCard(String panCard) {
+		return fetchHelper.ExistsByPancard(adminRepository, "admin", panCard);
+	}
 
 }
