@@ -94,7 +94,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsService userDetailsService=  userDetailsServiceFactory.fetchUserDetailsService(userType);
         UserDetails user =  userDetailsService.loadUserByUsername(otpReq.getUsername());
-        String jwtToken = jwtUtil.generateToken(otpReq.getUsername());
+        String jwtToken = jwtUtil.generateToken(otpReq.getUsername(),user.getAuthorities());
         LoginResponse response = new LoginResponse(jwtToken,user);
         return ResponseEntity.ok(response);
     }

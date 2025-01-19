@@ -27,7 +27,7 @@ public class CustomUserDetails implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		if(entity instanceof Customer) {
 			return entity.getRoles().stream().map(role -> 
-				new CustomGrantedAuthority(role.getName(),
+				new CustomGrantedAuthority("ROLE_"+role.getName(),
 						role.getDescription())).collect(Collectors.toList());
 		}else {
 			return null;

@@ -1,12 +1,14 @@
 package com.bank.services;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.bank.security.auth.CustomUserDetails;
-import com.bank.security.auth.Keygenerator;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,12 +20,17 @@ import io.jsonwebtoken.SignatureAlgorithm;
 	    // Use environment variables for secret keys in production
 
 	    // Generate JWT Token
-	    public String generateToken(String username) {
-	        return Jwts.builder()
+	    public String generateToken(String username , Collection<? extends GrantedAuthority>authorities) {
+	    	 List<String> authorityList = authorities.stream()
+                     .map(GrantedAuthority::getAuthority)
+                     .collect(Collectors.toList());
+	    	return Jwts.builder()
 	                .setSubject(username)
+	                .claim("authorities",authorityList)
 	                .setIssuedAt(new Date(System.currentTimeMillis()))
 	                .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 60 * 10)) // 10 hours
 	                .signWith(SignatureAlgorithm.HS256,SECRET_KEY )
+	                
 	                .compact();
 	    }
 
