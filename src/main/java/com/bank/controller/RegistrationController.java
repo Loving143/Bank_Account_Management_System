@@ -1,5 +1,7 @@
 package com.bank.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bank.dto.GenericFilterRequest;
 import com.bank.registration.factoryDesignPattern.PersonStrategyFactory;
 import com.bank.registration.factoryDesignPattern.RegistrationStrategyFactory;
 import com.bank.registration.strategypattern.RegistrationContext;
@@ -35,5 +38,23 @@ public class RegistrationController {
 		type+=registrationType.substring(1);
 		return ResponseEntity.ok(new ResponseMessage<>("1",type+" registered successfully"));
 	}
+	
+	@PostMapping("/filter")
+	public ResponseEntity<?> filter(@RequestBody GenericFilterRequest request){
+		 Map<String, Object> filters = request.getFilters();
 
-}
+		 System.out.println("issuedUpto "+request.getRequest().getIssuedFrom());
+	        if (filters != null && !filters.isEmpty()) {
+	            filters.forEach((key, value) -> 
+	                System.out.println("Filter Key: " + key + ", Filter Value: " + value)
+	            );
+	        } else {
+	            System.out.println( "No filters provided!");
+	        }
+	       // System.out.println( "No filters provided!");
+	        
+	        return ResponseEntity.ok(new ResponseMessage<>("1","Filters registered successfully"));
+	    }
+	}
+
+

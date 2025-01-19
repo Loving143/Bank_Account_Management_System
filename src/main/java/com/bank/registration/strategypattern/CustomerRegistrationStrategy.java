@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.bank.Repository.CustomerRepository;
@@ -32,6 +33,9 @@ public class CustomerRegistrationStrategy<T> implements RegistrationBehaviour<T>
 	
 	@Autowired 
 	private EntityService entityService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public void register(Person person,T t) {
@@ -67,6 +71,7 @@ public class CustomerRegistrationStrategy<T> implements RegistrationBehaviour<T>
 		}
 		Person customer = new Customer(data);
 		System.out.println(customer);
+		customer.setPassword(passwordEncoder.encode((String)data.get("password")));
 		customerRepository.save((Customer)customer);
 	}
 	

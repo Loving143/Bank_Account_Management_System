@@ -52,4 +52,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 
 	boolean existsByAadhaarCardAndIdNot(String aadhaarCard,Integer id);
 
+	Optional<Customer> findByUserName(String username);
+
 }

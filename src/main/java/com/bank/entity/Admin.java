@@ -6,14 +6,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 
 @Entity
 public class Admin extends Person{
@@ -88,7 +91,6 @@ public class Admin extends Person{
 	public Admin (Map<String,Object>data) {
 	super();
 	this.setUserName((String)data.get("name"));
-	this.setPassword((String)data.get("password"));
 	this.setEmail((String)data.get("email"));
 	this.phoneNo = (String)data.get("phoneNo");
 	this.aadhaarCard =(String)data.get("aadhaarCard");
@@ -102,6 +104,12 @@ public class Admin extends Person{
     } else {
         this.addresses = new HashSet<>(); // Default to an empty set if addresses are null
     }
+	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 }

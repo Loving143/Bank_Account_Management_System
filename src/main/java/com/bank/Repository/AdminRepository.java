@@ -27,4 +27,7 @@ public interface AdminRepository extends JpaRepository<Admin,Integer> {
 			+ "where a.id =:id ")
 	Optional<AdminDetailsDto> fetchAdminDetails(Integer id);
 
+	
+	Optional<Admin> findByUserName(String username);
+
 }

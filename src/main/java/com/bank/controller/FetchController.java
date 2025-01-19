@@ -30,7 +30,8 @@ public class FetchController {
 	}
 
 	@GetMapping("/fetchEntityDetailsById/type/{type}/id/{id}")
-	public DynamicResponse dynamicFetchEntityDetailsById(@PathVariable String type,@PathVariable Integer id) {DynamicResponse response=  entityService.fetchEntityDetailsById(fetchClassStrategyFactory.getClassStrategy(type), id);
+	public DynamicResponse dynamicFetchEntityDetailsById(@PathVariable String type,@PathVariable Integer id) {
+		DynamicResponse response=  entityService.fetchEntityDetailsById(fetchClassStrategyFactory.getClassStrategy(type), id);
 			return 	response;
 	}
 	

@@ -2,10 +2,6 @@ package com.bank.dto;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-
 import com.bank.entity.Address;
 
 public class AddCustomerRequest {

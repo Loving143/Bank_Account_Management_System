@@ -1,13 +1,16 @@
 package com.bank.entity;
 
 import java.util.Date;
+import java.util.Map;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+
 
 @Entity
 public class Role {
@@ -58,6 +61,14 @@ public class Role {
 	}
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	public Role(Map<String,Object>data) {
+		this.name =(String)data.get("name");
+		this.description = (String)data.get("description");
+	}
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

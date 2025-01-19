@@ -9,13 +9,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.bank.Repository.AdminRepository;
 import com.bank.Repository.DocumentTypeRepository;
 import com.bank.dto.AddDocumentRequest;
 import com.bank.entity.Admin;
-import com.bank.entity.Customer;
 import com.bank.entity.Document;
 import com.bank.entity.Person;
 import com.bank.exception.BadRequestException;
@@ -28,6 +28,9 @@ public class AdminRegistrationStrategy<T> implements RegistrationBehaviour<T>{
 	
 	@Autowired
 	private DocumentTypeRepository documentTypeRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public void register(Person person, T t) {
@@ -62,6 +65,7 @@ public class AdminRegistrationStrategy<T> implements RegistrationBehaviour<T>{
 //			throw new BadRequestException("Both pan card and aadhaar card documents are required");
 		}
 		Person admin = new Admin(data);
+		admin.setPassword(passwordEncoder.encode((String)data.get("password")));
 		adminRepository.save((Admin)admin);
 	}
 	

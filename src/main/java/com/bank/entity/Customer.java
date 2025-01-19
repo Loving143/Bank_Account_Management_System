@@ -6,16 +6,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import com.bank.dto.AddCustomerRequest;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Customer extends Person{
@@ -43,10 +43,11 @@ public class Customer extends Person{
 	public <T> Customer(Map<String, Object> data) {
 		super();
 		this.setUserName((String)data.get("name"));
-		this.setPassword((String)data.get("password"));
 		this.setEmail((String)data.get("email"));
 		this.phoneNo = (String)data.get("phoneNo");
+		this.panCard = (String)data.get("panCard");
 		this.aadhaarCard =(String)data.get("aadhaarCard");
+		this.age = (Integer)data.get("age");
 	    List<Map<String, Object>> addressList = (List<Map<String, Object>>) data.get("addresses");
 	    if (addressList != null) {
 	        this.addresses = addressList.stream()
@@ -54,6 +55,15 @@ public class Customer extends Person{
 	                                    .collect(Collectors.toSet());
 	    } else {
 	        this.addresses = new HashSet<>(); // Default to an empty set if addresses are null
+	    }
+	    
+	    List<Map<String, Object>> roles = (List<Map<String, Object>>) data.get("roles");
+	    if (roles != null) {
+	        this.roles = roles.stream()
+	                                    .map(Role::new) // Use Address constructor to convert each map
+	                                    .collect(Collectors.toSet());
+	    } else {
+	        this.roles = new HashSet<>(); // Default to an empty set if addresses are null
 	    }
 		
 		}
@@ -112,6 +122,19 @@ public class Customer extends Person{
 	}
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Customer(String userName, String password, String email) {
+		super(userName, password, email);
+		// TODO Auto-generated constructor stub
 	}
 
 }
