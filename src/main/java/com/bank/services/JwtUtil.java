@@ -14,7 +14,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 	@Component
 	public class JwtUtil {
 
-	    private final String SECRET_KEY = Keygenerator.generateKey();
+	    private final String SECRET_KEY = "ZGe7eDBd1lSvPy8peQZjISBZIc/x40SBwlS5omD7Hlk=";
 	    // Use environment variables for secret keys in production
 
 	    // Generate JWT Token

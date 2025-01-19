@@ -12,6 +12,7 @@ public class FetchRepositoryStrategyFactory<T> {
 	
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
 	private CustomerRepository customerRepository;
 	public JpaRepository<T, Integer>fetchRepository(String entityType){
 		if(entityType.equals("admin")) {
