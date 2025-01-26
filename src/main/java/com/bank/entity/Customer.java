@@ -24,7 +24,7 @@ public class Customer extends Person{
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer id;
 	private String phoneNo;
-	@OneToMany(cascade= CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(cascade= CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
 	private Set<Address> addresses ;
 	private String panCard;
 	private String aadhaarCard;
